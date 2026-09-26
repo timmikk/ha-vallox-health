@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from homeassistant.components.sensor import SensorEntity, SensorStateClass
 from homeassistant.const import EntityCategory
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .coordinator import ValloxHealthCoordinator
 from .entity import ValloxHealthEntity
@@ -36,7 +36,7 @@ class ValloxHealthFaultCountSensor(ValloxHealthEntity, SensorEntity):
 
 
 async def async_setup_entry(
-    _hass, entry, async_add_entities: AddConfigEntryEntitiesCallback
+    _hass, entry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Set up the approved Vallox Health fault counters."""
     coordinator: ValloxHealthCoordinator = entry.runtime_data

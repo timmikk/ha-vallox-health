@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.const import EntityCategory
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import CELL_STATE_BYPASS, CELL_STATE_DEFROSTING
 from .coordinator import ValloxHealthCoordinator
@@ -38,7 +38,7 @@ class ValloxHealthBinarySensor(ValloxHealthEntity, BinarySensorEntity):
 
 
 async def async_setup_entry(
-    _hass, entry, async_add_entities: AddConfigEntryEntitiesCallback
+    _hass, entry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Set up the approved Vallox Health binary sensors."""
     coordinator: ValloxHealthCoordinator = entry.runtime_data
