@@ -2,18 +2,54 @@
 
 from __future__ import annotations
 
-from homeassistant import config_entries
+import logging
+from typing import Any
 
-from .const import DOMAIN
+import voluptuous as vol
+
+from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
+from homeassistant.const import CONF_HOST
+from homeassistant.util.network import is_ip_address
+from vallox_websocket_api import Vallox, ValloxApiException
+
+from .const import DEFAULT_NAME, DOMAIN
+
+_LOGGER = logging.getLogger(__name__)
+CONFIG_SCHEMA = vol.Schema({vol.Required(CONF_HOST): str})
 
 
-class ValloxHealthConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Minimal config flow — one entry, no options yet."""
+class ValloxHealthConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Configure a read-only Vallox Health connection."""
 
     VERSION = 1
 
-    async def async_step_user(self, user_input=None):
-        """Handle the initial step."""
-        if self._async_current_entries():
-            return self.async_abort(reason="single_instance_allowed")
-        return self.async_create_entry(title="Read-only Vallox health telemetry", data={})
+    async def async_step_user(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Handle the initial setup flow."""
+        if user_input is None:
+            return self.async_show_form(step_id="user", data_schema=CONFIG_SCHEMA)
+
+        host = user_input[CONF_HOST]
+        errors: dict[str, str] = {}
+        if not is_ip_address(host):
+            errors[CONF_HOST] = "invalid_host"
+        else:
+            self._async_abort_entries_match({CONF_HOST: host})
+            try:
+                await Vallox(host).fetch_metric_data()
+            except ValloxApiException:
+                errors["base"] = "cannot_connect"
+            except Exception:  # The device protocol must not leak into logs.
+                _LOGGER.exception("Unexpected Vallox Health connection failure")
+                errors["base"] = "unknown"
+            else:
+                return self.async_create_entry(title=DEFAULT_NAME, data=user_input)
+
+        return self.async_show_form(
+            step_id="user",
+            data_schema=self.add_suggested_values_to_schema(
+                CONFIG_SCHEMA, {CONF_HOST: host}
+            ),
+            errors=errors,
+        )

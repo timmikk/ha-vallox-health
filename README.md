@@ -13,9 +13,24 @@ HACS-installable. See `info.md` for install/rollback instructions.
 - Component code lives in `custom_components/vallox_health/`.
 - Tests: `pytest` (uses `pytest-homeassistant-custom-component`).
 - CI: `.forgejo/workflows/ci.yml` runs `hassfest` + `hacs/action` + pytest.
-- Release: tag `vX.Y.Z` on Forgejo → mirror syncs → GitHub Actions
-  (`.github/workflows/release.yml`) creates a Release object → HACS
-  offers the version in the UI.
+- Release: tag `vX.Y.Z` on Forgejo → mirror syncs → HACS offers the version
+  in the UI. A GitHub Release object is not needed.
+
+## Supported telemetry
+
+Version 0.1.0 is intentionally a small diagnostic surface: bypass state,
+defrosting, post-heater state, active-fault indication, and current/total
+fault counters. It has no writable entities or services.
+
+The component accepts only an explicit allowlist of protocol metric keys. It
+does not retain or expose raw device responses: Vallox protocol responses can
+include configuration and credential-bearing fields. Metrics whose polarity,
+unit, or availability is not confirmed are left out rather than guessed.
+
+This component is separate from Home Assistant's core `vallox` integration.
+Keep the core integration installed for its existing fan controls and
+automations; configure Vallox Health with the same device IP only after its
+HACS release is installed.
 
 ## Secrets policy
 
