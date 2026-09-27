@@ -1,19 +1,19 @@
-# ha-vallox-health
+# ha-vallox-extended
 
-Read-only Vallox health telemetry
+Extended read-only Vallox telemetry
 
 Home Assistant integration installed via HACS from
-[timmikk/ha-vallox-health](https://github.com/timmikk/ha-vallox-health) (public
+[timmikk/ha-vallox-extended](https://github.com/timmikk/ha-vallox-extended) (public
 GitHub mirror of the Forgejo primary at
-[git.clo.dy.fi/timo/ha-vallox-health](https://git.clo.dy.fi/timo/ha-vallox-health)).
+[git.clo.dy.fi/timo/ha-vallox-extended](https://git.clo.dy.fi/timo/ha-vallox-extended)).
 
 ## Install
 
 1. HACS → ⋮ → Custom repositories, add
-   `https://github.com/timmikk/ha-vallox-health`, category **Integration**.
-2. HACS → Explore, find "Read-only Vallox health telemetry", Download.
+   `https://github.com/timmikk/ha-vallox-extended`, category **Integration**.
+2. HACS → Explore, find "Extended read-only Vallox telemetry", Download.
 3. Restart Home Assistant.
-4. Settings → Devices & Services → Add Integration → Read-only Vallox health telemetry.
+4. Settings → Devices & Services → Add Integration → Extended read-only Vallox telemetry.
 
 ## Rollback
 

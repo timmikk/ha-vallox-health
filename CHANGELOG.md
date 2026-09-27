@@ -6,11 +6,18 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-27
+
+### Changed
+
+- Renamed the repository and integration domain from `vallox_health` to
+  `vallox_extended` before the first HACS installation.
+
 ## [0.1.0] - 2026-09-26
 
 ### Added
 
-- Initial read-only Vallox Health integration with bypass, defrost, heater,
+- Initial Vallox Extended integration with bypass, defrost, heater,
   and fault diagnostic telemetry.
 - Explicit protocol allowlist and tests preventing unapproved raw fields from
   entering coordinator state.

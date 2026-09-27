@@ -1,4 +1,4 @@
-"""Read-only Vallox Health binary sensors."""
+"""Read-only Vallox Extended binary sensors."""
 
 from __future__ import annotations
 
@@ -7,18 +7,18 @@ from homeassistant.const import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import CELL_STATE_BYPASS, CELL_STATE_DEFROSTING
-from .coordinator import ValloxHealthCoordinator
-from .entity import ValloxHealthEntity
+from .coordinator import ValloxExtendedCoordinator
+from .entity import ValloxExtendedEntity
 
 
-class ValloxHealthBinarySensor(ValloxHealthEntity, BinarySensorEntity):
+class ValloxExtendedBinarySensor(ValloxExtendedEntity, BinarySensorEntity):
     """A binary sensor derived from a documented read-only metric."""
 
     _attr_entity_category = EntityCategory.DIAGNOSTIC
 
     def __init__(
         self,
-        coordinator: ValloxHealthCoordinator,
+        coordinator: ValloxExtendedCoordinator,
         key: str,
         name: str,
         metric: str,
@@ -40,11 +40,11 @@ class ValloxHealthBinarySensor(ValloxHealthEntity, BinarySensorEntity):
 async def async_setup_entry(
     _hass, entry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    """Set up the approved Vallox Health binary sensors."""
-    coordinator: ValloxHealthCoordinator = entry.runtime_data
+    """Set up the approved Vallox Extended binary sensors."""
+    coordinator: ValloxExtendedCoordinator = entry.runtime_data
     async_add_entities(
         [
-            ValloxHealthBinarySensor(
+            ValloxExtendedBinarySensor(
                 coordinator,
                 "bypass_active",
                 "Bypass active",
@@ -52,7 +52,7 @@ async def async_setup_entry(
                 CELL_STATE_BYPASS,
                 frozenset({0, 1, CELL_STATE_BYPASS, CELL_STATE_DEFROSTING}),
             ),
-            ValloxHealthBinarySensor(
+            ValloxExtendedBinarySensor(
                 coordinator,
                 "defrosting",
                 "Defrosting",
@@ -60,7 +60,7 @@ async def async_setup_entry(
                 CELL_STATE_DEFROSTING,
                 frozenset({0, 1, CELL_STATE_BYPASS, CELL_STATE_DEFROSTING}),
             ),
-            ValloxHealthBinarySensor(
+            ValloxExtendedBinarySensor(
                 coordinator,
                 "post_heater",
                 "Post-heater active",
@@ -68,7 +68,7 @@ async def async_setup_entry(
                 1,
                 frozenset({0, 1}),
             ),
-            ValloxHealthBinarySensor(
+            ValloxExtendedBinarySensor(
                 coordinator,
                 "fault_active",
                 "Fault active",

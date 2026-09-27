@@ -1,4 +1,4 @@
-"""Read-only polling coordinator for Vallox Health."""
+"""Read-only polling coordinator for Vallox Extended."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from .const import ALLOWED_METRICS, DOMAIN, STATE_SCAN_INTERVAL
 _LOGGER = logging.getLogger(__name__)
 
 
-class ValloxHealthCoordinator(DataUpdateCoordinator[Mapping[str, int | float | None]]):
+class ValloxExtendedCoordinator(DataUpdateCoordinator[Mapping[str, int | float | None]]):
     """Fetch and retain only the explicitly approved Vallox metrics."""
 
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry, client: Vallox) -> None:
@@ -32,5 +32,5 @@ class ValloxHealthCoordinator(DataUpdateCoordinator[Mapping[str, int | float | N
         try:
             data = await self.client.fetch_metrics()
         except ValloxApiException as err:
-            raise UpdateFailed("Unable to refresh Vallox Health metrics") from err
+            raise UpdateFailed("Unable to refresh Vallox Extended metrics") from err
         return {key: data.get(key) for key in ALLOWED_METRICS}

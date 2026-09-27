@@ -1,0 +1,12 @@
+{
+  "domain": "vallox_extended",
+  "name": "Extended read-only Vallox telemetry",
+  "codeowners": ["@timmikk"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/timmikk/ha-vallox-extended",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/timmikk/ha-vallox-extended/issues",
+  "requirements": ["vallox-websocket-api==6.0.0"],
+  "version": "0.1.1"
+}

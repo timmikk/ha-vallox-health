@@ -1,4 +1,4 @@
-"""Config flow for vallox_health."""
+"""Config flow for vallox_extended."""
 
 from __future__ import annotations
 
@@ -17,8 +17,8 @@ _LOGGER = logging.getLogger(__name__)
 CONFIG_SCHEMA = vol.Schema({vol.Required(CONF_HOST): str})
 
 
-class ValloxHealthConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Configure a read-only Vallox Health connection."""
+class ValloxExtendedConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Configure an extended read-only Vallox connection."""
 
     VERSION = 1
 
@@ -40,7 +40,7 @@ class ValloxHealthConfigFlow(ConfigFlow, domain=DOMAIN):
             except ValloxApiException:
                 errors["base"] = "cannot_connect"
             except Exception:  # The device protocol must not leak into logs.
-                _LOGGER.exception("Unexpected Vallox Health connection failure")
+                _LOGGER.exception("Unexpected Vallox Extended connection failure")
                 errors["base"] = "unknown"
             else:
                 return self.async_create_entry(title=DEFAULT_NAME, data=user_input)

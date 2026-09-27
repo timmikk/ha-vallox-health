@@ -1,4 +1,4 @@
-"""Read-only Vallox health telemetry."""
+"""Extended read-only Vallox telemetry."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from homeassistant.helpers import config_validation as cv
 from vallox_websocket_api import Vallox
 
 from .const import DOMAIN
-from .coordinator import ValloxHealthCoordinator
+from .coordinator import ValloxExtendedCoordinator
 
 # Config-flow-only integration; hassfest requires this declaration for any
 # integration that implements async_setup.
@@ -17,7 +17,7 @@ CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
-    """Set up the vallox_health integration from YAML (unused — config flow only)."""
+    """Set up the vallox_extended integration from YAML (unused — config flow only)."""
     return True
 
 
@@ -25,8 +25,8 @@ PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up vallox_health from a config entry."""
-    coordinator = ValloxHealthCoordinator(
+    """Set up vallox_extended from a config entry."""
+    coordinator = ValloxExtendedCoordinator(
         hass, entry, Vallox(entry.data[CONF_HOST])
     )
     await coordinator.async_config_entry_first_refresh()

@@ -1,4 +1,4 @@
-"""Read-only Vallox Health numeric sensors."""
+"""Read-only Vallox Extended numeric sensors."""
 
 from __future__ import annotations
 
@@ -6,11 +6,11 @@ from homeassistant.components.sensor import SensorEntity, SensorStateClass
 from homeassistant.const import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .coordinator import ValloxHealthCoordinator
-from .entity import ValloxHealthEntity
+from .coordinator import ValloxExtendedCoordinator
+from .entity import ValloxExtendedEntity
 
 
-class ValloxHealthFaultCountSensor(ValloxHealthEntity, SensorEntity):
+class ValloxExtendedFaultCountSensor(ValloxExtendedEntity, SensorEntity):
     """Expose a read-only Vallox fault counter."""
 
     _attr_entity_category = EntityCategory.DIAGNOSTIC
@@ -18,7 +18,7 @@ class ValloxHealthFaultCountSensor(ValloxHealthEntity, SensorEntity):
 
     def __init__(
         self,
-        coordinator: ValloxHealthCoordinator,
+        coordinator: ValloxExtendedCoordinator,
         key: str,
         name: str,
         metric: str,
@@ -38,17 +38,17 @@ class ValloxHealthFaultCountSensor(ValloxHealthEntity, SensorEntity):
 async def async_setup_entry(
     _hass, entry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    """Set up the approved Vallox Health fault counters."""
-    coordinator: ValloxHealthCoordinator = entry.runtime_data
+    """Set up the approved Vallox Extended fault counters."""
+    coordinator: ValloxExtendedCoordinator = entry.runtime_data
     async_add_entities(
         [
-            ValloxHealthFaultCountSensor(
+            ValloxExtendedFaultCountSensor(
                 coordinator,
                 "current_fault_count",
                 "Current fault count",
                 "A_CYC_FAULT_COUNT",
             ),
-            ValloxHealthFaultCountSensor(
+            ValloxExtendedFaultCountSensor(
                 coordinator,
                 "total_fault_count",
                 "Total fault count",

@@ -1,7 +1,7 @@
-# ha-vallox-health
+# ha-vallox-extended
 
 Home Assistant custom integration. Component code is under
-custom_components/vallox_health/; tests live in tests/ and run with pytest.
+custom_components/vallox_extended/; tests live in tests/ and run with pytest.
 
 ## Workflow
 

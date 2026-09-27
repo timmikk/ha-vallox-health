@@ -1,4 +1,4 @@
-"""Constants for Vallox Health.
+"""Constants for Vallox Extended.
 
 The cell-state mapping is derived from Home Assistant's core Vallox
 integration (Apache-2.0); only the read-only subset needed here is retained.
@@ -6,8 +6,8 @@ integration (Apache-2.0); only the read-only subset needed here is retained.
 
 from datetime import timedelta
 
-DOMAIN = "vallox_health"
-DEFAULT_NAME = "Vallox Health"
+DOMAIN = "vallox_extended"
+DEFAULT_NAME = "Vallox Extended"
 STATE_SCAN_INTERVAL = timedelta(seconds=60)
 
 CELL_STATE_BYPASS = 2

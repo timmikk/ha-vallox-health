@@ -46,7 +46,7 @@ jobs:
         run: |
           cd /tmp/ha-core
           python -m script.hassfest \
-            --integration-path "$GITHUB_WORKSPACE/custom_components/vallox_health" \
+            --integration-path "$GITHUB_WORKSPACE/custom_components/vallox_extended" \
             --action validate
 
   hacs:
@@ -65,7 +65,7 @@ jobs:
           # not the GitHub mirror HACS actually needs to validate.
           # See infra #223.
           github_token: ${{ secrets.HACS_GITHUB_TOKEN }}
-          repository: timmikk/ha-vallox-health
+          repository: timmikk/ha-vallox-extended
           category: integration
           ignore: brands
 

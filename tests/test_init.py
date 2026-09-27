@@ -1,4 +1,4 @@
-"""Tests for the Vallox Health integration."""
+"""Tests for the Vallox Extended integration."""
 
 from unittest.mock import AsyncMock, patch
 
@@ -7,12 +7,12 @@ from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import CONF_HOST
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.vallox_health.const import ALLOWED_METRICS, DOMAIN
+from custom_components.vallox_extended.const import ALLOWED_METRICS, DOMAIN
 
 
 def test_import():
     """The integration package can be imported."""
-    from custom_components import vallox_health  # noqa: F401
+    from custom_components import vallox_extended  # noqa: F401
 
 
 def test_allowlist_contains_only_health_metrics():
@@ -48,7 +48,7 @@ async def test_setup_and_unload_filters_unapproved_metrics(hass):
     entry = MockConfigEntry(domain=DOMAIN, data={CONF_HOST: "192.0.2.1"})
     entry.add_to_hass(hass)
 
-    with patch("custom_components.vallox_health.Vallox", return_value=client):
+    with patch("custom_components.vallox_extended.Vallox", return_value=client):
         assert await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
 
